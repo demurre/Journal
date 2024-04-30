@@ -1,0 +1,44 @@
+.journal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.input-title {
+  border: none;
+  background: none;
+  font-size: 32px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  line-height: normal;
+  border-bottom: 1px solid #363434;
+  width: 100%;
+}
+
+.form-lable {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 150px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.input {
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  line-height: normal;
+  border-bottom: 1px solid #363434;
+  width: 100%;
+}
+
+.invalid {
+  border: 1px solid #b3261e;
+}
