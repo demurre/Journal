@@ -31,3 +31,10 @@
 .invalid {
   border: 1px solid #b3261e;
 }
+
+.delete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}

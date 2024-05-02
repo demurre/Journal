@@ -1,9 +1,9 @@
 import CardButton from "../CardButton/CardButton";
 import "./JournalAddButton.css";
 
-function JournalAddButton() {
+function JournalAddButton({ clearForm }) {
   return (
-    <CardButton className="journal-add">
+    <CardButton className="journal-add" onClick={clearForm}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"

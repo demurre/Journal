@@ -5,3 +5,23 @@
   border-radius: 3px;
   border: none;
 }
+
+.addUser {
+  border: none;
+  border-bottom-width: medium;
+  border-bottom-style: none;
+  border-bottom-color: currentcolor;
+  background: none;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  line-height: normal;
+  border-bottom: 1px solid #363434;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
