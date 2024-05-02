@@ -1,6 +1,6 @@
 # Journal
 
-## [Demo]()
+## [Demo](https://journal-on-react.vercel.app/)
 
 ![preview](https://github.com/demurre/demurre/assets/117121382/2b420516-ca5d-4b7f-a943-8a26e43b3ef7)
 
