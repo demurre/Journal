@@ -1,22 +1,3 @@
-.journal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.form-lable {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-width: 150px;
-}
-
-.form-row {
-  display: flex;
-  align-items: center;
-  gap: 50px;
-}
-
 .input {
   border: none;
   background: none;
@@ -26,6 +7,10 @@
   line-height: normal;
   border-bottom: 1px solid #363434;
   width: 100%;
+}
+
+.input-title {
+  font-size: 32px;
 }
 
 .invalid {

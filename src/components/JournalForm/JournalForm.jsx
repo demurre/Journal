@@ -1,24 +1,43 @@
 import styles from "./JournalForm.module.css";
 import Button from "../Button/Button";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import cn from "classnames";
 import { formReducer, INITIAL_STATE } from "./JournalForm.state";
+import Input from "../Input/Input";
+import { useContext } from "react";
+import { UserContext } from "../../context/user.context";
 
 function JournalForm({ onSubmit }) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
+  const titleRef = useRef();
+  const postRef = useRef();
+  const dateRef = useRef();
+  const { userId } = useContext(UserContext);
+
+  const focusError = (isValid) => {
+    switch (true) {
+      case !isValid.title:
+        titleRef.current.focus();
+        break;
+      case !isValid.date:
+        dateRef.current.focus();
+        break;
+      case !isValid.post:
+        postRef.current.focus();
+        break;
+    }
+  };
 
   useEffect(() => {
     let timerId;
     if (!isValid.date || !isValid.post || !isValid.title) {
+      focusError(isValid);
       timerId = setTimeout(() => {
-        console.log("Clear");
         dispatchForm({ type: "RESET_VALIDITY" });
       }, 2000);
     }
-    return () => {
-      clearTimeout(timerId);
-    };
+    return () => clearTimeout(timerId);
   }, [isValid]);
 
   useEffect(() => {
@@ -26,7 +45,14 @@ function JournalForm({ onSubmit }) {
       onSubmit(values);
       dispatchForm({ type: "CLEAR" });
     }
-  }, [isFormReadyToSubmit]);
+  }, [isFormReadyToSubmit, values, onSubmit]);
+
+  useEffect(() => {
+    dispatchForm({
+      type: "SET_VALUE",
+      payload: { userId },
+    });
+  }, [userId]);
 
   const onChange = (e) => {
     dispatchForm({
@@ -43,14 +69,14 @@ function JournalForm({ onSubmit }) {
   return (
     <form className={styles["journal-form"]} onSubmit={addJournalItem}>
       <div className={styles["form-row"]}>
-        <input
+        <Input
           type="text"
+          ref={titleRef}
+          isValid={isValid.title}
           onChange={onChange}
           value={values.title}
           name="title"
-          className={cn(styles["input-title"], {
-            [styles["invalid"]]: !isValid.title,
-          })}
+          appearence="title"
         />
       </div>
 
@@ -59,15 +85,14 @@ function JournalForm({ onSubmit }) {
           <img src="/calendar.svg" alt="calendar" />
           <span>Date</span>
         </label>
-        <input
+        <Input
           type="date"
+          ref={dateRef}
+          isValid={isValid.date}
           onChange={onChange}
           value={values.date}
           name="date"
           id="date"
-          className={cn(styles["input"], {
-            [styles["invalid"]]: !isValid.date,
-          })}
         />
       </div>
 
@@ -76,19 +101,19 @@ function JournalForm({ onSubmit }) {
           <img src="/folder.svg" alt="folder" />
           <span>Marks</span>
         </label>
-        <input
+        <Input
           type="text"
           onChange={onChange}
           value={values.tag}
           name="tag"
           id="tag"
-          className={cn(styles["input"])}
         />
       </div>
 
       <textarea
         name="post"
-        id=""
+        ref={postRef}
+        id="form_textarea"
         onChange={onChange}
         value={values.post}
         cols="30"

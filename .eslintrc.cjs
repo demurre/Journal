@@ -18,5 +18,6 @@ module.exports = {
     ],
     semi: ["error", "always", { omitLastInOneLineBlock: false }],
     quotes: ["error", "double"],
+    "react/prop-types": [0],
   },
 };

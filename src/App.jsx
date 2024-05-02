@@ -1,52 +1,53 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
 import JournalForm from "./components/JournalForm/JournalForm";
 import JournalList from "./components/JournalList/JournalList";
-import Body from "./Layouts/Body/Body";
-import LeftPanel from "./Layouts/LeftPanel/LeftPanel";
+import Body from "./layouts/Body/Body";
+import LeftPanel from "./layouts/LeftPanel/LeftPanel";
+import { useLocalStorage } from "./hooks/use-localstorage.hook";
+import { UserContext, UserContextProvider } from "./context/user.context";
+import { useState } from "react";
+
+function mapItems(items) {
+  if (!items) {
+    return [];
+  }
+  return items.map((i) => ({ ...i, date: new Date(i.date) }));
+}
+
+const defaultLocaleStorageItemsValue = [];
 
 function App() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("data"));
-    if (data) {
-      setItems(data.map((item) => ({ ...item, date: new Date(item.date) })));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (items.length) {
-      localStorage.setItem("data", JSON.stringify(items));
-    }
-  }, [items]);
+  const [items, setItems] = useLocalStorage(
+    "data",
+    defaultLocaleStorageItemsValue
+  );
 
   const addItem = (item) => {
-    setItems((oldItems) => [
-      ...oldItems,
+    setItems([
+      ...mapItems(items),
       {
-        id:
-          oldItems.length > 0 ? Math.max(...oldItems.map((i) => i.id)) + 1 : 1,
-        title: item.title,
-        post: item.post,
+        ...item,
         date: new Date(item.date),
+        id: items?.length ? Math.max(...items.map((i) => i?.id)) + 1 : 1,
       },
     ]);
   };
 
   return (
-    <div className="app">
-      <LeftPanel>
-        <Header />
-        <JournalAddButton />
-        <JournalList items={items} />
-      </LeftPanel>
-      <Body>
-        <JournalForm onSubmit={addItem} />
-      </Body>
-    </div>
+    <UserContextProvider>
+      <div className="app">
+        <LeftPanel>
+          <Header />
+          <JournalAddButton />
+          <JournalList items={mapItems(items)} />
+        </LeftPanel>
+        <Body>
+          <JournalForm onSubmit={addItem} />
+        </Body>
+      </div>
+    </UserContextProvider>
   );
 }
 
