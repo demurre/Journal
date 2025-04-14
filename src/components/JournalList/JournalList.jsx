@@ -26,7 +26,7 @@ function JournalList({ items, setItem }) {
   return (
     <>
       {filteredItems.map((el) => (
-        <CardButton key={el.id} onClick={() => setItem(el)}>
+        <CardButton key={el.id} onClick={() => setItem(el)} id="note-button">
           <JournalItem title={el.title} post={el.post} date={el.date} />
         </CardButton>
       ))}

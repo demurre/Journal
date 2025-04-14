@@ -18,7 +18,11 @@ function UserAddButton({ onAddUser, newUserName }) {
     }
   };
   return (
-    <CardButton className="user-add" onClick={handleAddUser}>
+    <CardButton
+      className="user-add"
+      onClick={handleAddUser}
+      id="add-user-button"
+    >
       Add
     </CardButton>
   );

@@ -3,7 +3,11 @@ import "./JournalAddButton.css";
 
 function JournalAddButton({ clearForm }) {
   return (
-    <CardButton className="journal-add" onClick={clearForm}>
+    <CardButton
+      className="journal-add"
+      onClick={clearForm}
+      id="add-note-button"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"

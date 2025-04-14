@@ -43,6 +43,7 @@ function SelectUser() {
           value={newUserName}
           onChange={handleNewUserNameChange}
           placeholder="Enter new user name"
+          id="add-user"
         />
         <UserAddButton onAddUser={handleAddUser} newUserName={newUserName}>
           Add

@@ -102,12 +102,14 @@ function JournalForm({ onSubmit, data, onDelete }) {
           name="title"
           appearence="title"
           placeholder="Enter title"
+          id="title"
         />
         {data?.id && (
           <button
             className={styles["delete"]}
             type="button"
             onClick={() => deleteJournalItem()}
+            id="delete-button"
           >
             <img src="/archive.svg" alt="delete" />
           </button>
