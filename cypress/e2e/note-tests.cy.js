@@ -1,9 +1,11 @@
-/* eslint-disable no-undef */
 describe("Note tests", () => {
-  it("Test add and delete note", () => {
+  beforeEach(() => {
     cy.visit("/");
     cy.getDataTest("left-panel").get("#add-note-button").click();
     cy.getDataTest("left-panel").contains(/Create first note/i);
+  });
+
+  it("Test add and delete note", () => {
     cy.getDataTest("body").get("#title").type("Title test");
     cy.getDataTest("body").get("#date").type("2025-01-01");
     cy.getDataTest("body").get("#tag").type("Mark test");
@@ -16,10 +18,8 @@ describe("Note tests", () => {
     cy.getDataTest("body").get("#delete-button").click();
     cy.getDataTest("left-panel").contains(/Create first note/i);
   });
+
   it.only("Test note errors", () => {
-    cy.visit("/");
-    cy.getDataTest("left-panel").get("#add-note-button").click();
-    cy.getDataTest("left-panel").contains(/Create first note/i);
     cy.getDataTest("body").find("button").click();
     cy.getDataTest("body")
       .get("#title")

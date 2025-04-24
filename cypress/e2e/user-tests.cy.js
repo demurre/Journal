@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 describe("User tests", () => {
   it("Test add user", () => {
     cy.visit("/");
